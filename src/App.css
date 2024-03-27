@@ -4,10 +4,18 @@
   justify-content: center;
 }
 
-table,
+
+
+.orders-data,
 th,
 td {
   border: solid 1px black;
+}
+
+.orders-data {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 95%;
 }
 
 tr {
@@ -16,27 +24,12 @@ tr {
 
 td {
   text-align: center;
-  height: 100%;
-}
-
-.value-cell {
-  display: flex;
-  justify-content: center;
-}
-
-.value-cell span {
-  flex-grow: 1;
-  height: 100%;
+  background-color: lightcyan;
 }
 
 td button {
   display: block;
   width: 100%;
-}
-
-.orders-data {
-  margin-top: 10px;
-  width: 95%;
 }
 
 .modal-update {
@@ -47,6 +40,15 @@ td button {
   border: solid 2px black;
   background-color: lightgray;
   display: flex;
+}
+
+/* I can´t change it if i just type */
+.modal-input {
+  width: 80%;
+}
+
+.modal-td {
+  background-color: white;
 }
 
 .modal-update div {

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import Modal from "./Modal";
 
 export default function DataManager() {
   const [orders, setOrders] = useState([]);
-  const [data, setData] = useState({ id: "", data: "" }); // Prototipe
   const [order, setOrder] = useState({});
-  const [visibility, setVisibility] = useState("hidden");
+  const [visibility, setVisibility] = useState(false);
 
   function getOrders() {
     axios
@@ -23,15 +23,8 @@ export default function DataManager() {
   }, []);
 
   function modalUpdate(order) {
-    setOrder({
-      id: order.id,
-      customerId: order.customerId,
-      shipName: order.shipName,
-      shipVia: order.shipVia,
-      employeeId: order.employeeId,
-      unitPrice: order.unitPrice,
-    });
-    setVisibility("visible");
+    setOrder(order);
+    setVisibility(true);
   }
 
   function updateOrder(event) {
@@ -44,7 +37,8 @@ export default function DataManager() {
     } else if (event.target.name == "employeeId") {
       order.employeeId = event.target.value;
     } else if (event.target.name == "unitPrice") {
-      order.unitPrice = event.target.value;
+      console.log(order.details[0].unitPrice);
+      order.details[0].unitPrice = event.target.value;
     }
   }
 
@@ -77,7 +71,7 @@ export default function DataManager() {
     setVisibility("hidden");
   }
 
-  function deleteData(event, id) {
+  function deleteData(id) {
     axios
       .delete(`https://northwind.vercel.app/api/orders/${id}`)
       .then((response) => {
@@ -92,69 +86,18 @@ export default function DataManager() {
 
   return (
     <>
-      <div className="modal-update" style={{ visibility: `${visibility}` }}>
-        <table>
-          <thead>
-            <tr>
-              <th>customerId</th>
-              <th>shipName</th>
-              <th>shipVia</th>
-              <th>employeeId</th>
-              <th>unit price</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                <input
-                  type="text"
-                  name="customerId"
-                  placeholder={order.customerId}
-                  onChange={(event) => updateOrder(event)}
-                />
-              </td>
-              <td>
-                <input
-                  type="text"
-                  name="shipName"
-                  placeholder={order.shipName}
-                  onChange={(event) => updateOrder(event)}
-                />
-              </td>
-              <td>
-                <input
-                  type="text"
-                  name="shipVia"
-                  placeholder={order.shipVia}
-                  onChange={(event) => updateOrder(event)}
-                />
-              </td>
-              <td>
-                <input
-                  type="text"
-                  name="employeeId"
-                  placeholder={order.employeeId}
-                  onChange={(event) => updateOrder(event)}
-                />
-              </td>
-              <td>
-                <input
-                  type="text"
-                  name="unitPrice"
-                  placeholder={order.unitPrice}
-                  onChange={(event) => updateOrder(event)}
-                />
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <div className="confirm">
-          <button onClick={updateAPI}>Ok</button>
-          <button onClick={() => setVisibility("hidden")}>Cancel</button>
-        </div>
-      </div>
-
-      <table className="orders-data" onClick={() => (visibility == "visible" ? setVisibility("hidden") : false)}>
+      {visibility === true ? (
+        <Modal
+          setVisibility={setVisibility}
+          order={order}
+          updateOrder={updateOrder}
+          updateAPI={updateAPI}
+        />
+      ) : null}
+      <table
+        className="orders-data"
+        onClick={() => (visibility == true ? setVisibility(false) : false)}
+      >
         <thead>
           <tr>
             <th>customerId</th>
@@ -170,38 +113,16 @@ export default function DataManager() {
           {orders &&
             orders?.map((order) => (
               <tr key={order.id}>
-                <td>
-                  {order.customerId}
-                  {/* <input
-                type="text"
-                name="customerId"
-                id={order.id}
-                placeholder={order.customerId}
-                onChange={(event) => changeData(event, order.id)}
-                /> */}
-                </td>
+                <td>{order.customerId}</td>
                 <td>{order.shipName}</td>
                 <td>{order.shipVia}</td>
                 <td>{order.employeeId}</td>
                 <td>{order.details[0].unitPrice}</td>
                 <td>
-                  <button
-                    onClick={(event) =>
-                      modalUpdate({
-                        id: order.id,
-                        customerId: order.customerId,
-                        shipName: order.shipName,
-                        shipVia: order.shipVia,
-                        employeeId: order.employeeId,
-                        unitPrice: order.details[0].unitPrice,
-                      })
-                    }
-                  >
-                    Update
-                  </button>
+                  <button onClick={() => modalUpdate(order)}>Update</button>
                 </td>
                 <td>
-                  <button onClick={(event) => deleteData(event, order.id)}>
+                  <button onClick={(event) => deleteData(order.id)}>
                     Delete
                   </button>
                 </td>
