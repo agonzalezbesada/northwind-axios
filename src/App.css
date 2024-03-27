@@ -1,0 +1,37 @@
+table,
+th,
+td {
+  border: solid 1px black;
+}
+
+th, td {
+  width: 200px;
+}
+
+td {
+  text-align: center;
+  height: 100%;
+}
+
+.value-cell {
+  display: flex;
+}
+
+.value-cell span {
+  flex-grow: 1;
+  height: 100%;
+}
+
+.value-cell input {
+  flex-grow: 1;
+  width: 50%;
+}
+
+td button {
+  display: block;
+  width: 100%;
+}
+
+.orders-data {
+  margin: 10px;
+}
