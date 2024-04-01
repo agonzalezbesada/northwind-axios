@@ -1,10 +1,85 @@
 .App {
   width: 100%;
   display: flex;
-  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
+.nav {
+  width: 100vw;
+  height: 8vh;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
 
+.nav a {
+  color: black;
+  padding: 10px;
+  background-color: white;
+  border: solid 1px white;
+  border-radius: 10px;
+  text-decoration: none;
+}
+
+.nav a:hover {
+  background-color: lightgray;
+  border: solid 1px lightgray;
+  border-radius: 10px;
+  text-decoration: underline;
+}
+
+.home {
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.about {
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.details {
+  width: 80vw;
+  margin-bottom: 10px;
+}
+
+.order-details {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  height: 30vh;
+  padding: 20px;
+  background-color: lightgrey;
+  border: solid 1px lightgrey;
+  border-radius: 10px;
+}
+
+.product-details {
+  display: flex;
+  justify-content: space-around;
+
+  padding: 5px;
+  margin-bottom: 2px;
+  background-color: lightgrey;
+  border: solid 1px lightgrey;
+  border-radius: 10px;
+}
+
+.product-detail {
+  padding-right: 10px;
+}
+
+.detail {
+  margin: 0;
+  height: 20%;
+}
 
 .orders-data,
 th,

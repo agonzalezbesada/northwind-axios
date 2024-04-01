@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import lodash from "lodash";
 import Modal from "./Modal";
+import { Link } from "react-router-dom";
 
 export default function DataManager() {
   const [orders, setOrders] = useState([]);
@@ -23,7 +25,7 @@ export default function DataManager() {
   }, []);
 
   function modalUpdate(order) {
-    setOrder(order);
+    setOrder(lodash.cloneDeep(order));
     setVisibility(true);
   }
 
@@ -37,22 +39,22 @@ export default function DataManager() {
     } else if (event.target.name == "employeeId") {
       order.employeeId = event.target.value;
     } else if (event.target.name == "unitPrice") {
-      console.log(order.details[0].unitPrice);
-      order.details[0].unitPrice = event.target.value;
+      order.details[0].unitPrice = isNaN(event.target.value)
+        ? event.target.value
+        : parseInt(event.target.value);
     }
   }
 
   function updateAPI() {
     let index = orders.findIndex((x) => x.id === order.id);
 
-    // [...orders] returns the same reference (shouldn´t?)
-    let newOrders = JSON.parse(JSON.stringify(orders));
+    let newOrders = lodash.cloneDeep(orders);
 
     newOrders[index].customerId = order.customerId;
     newOrders[index].shipName = order.shipName;
     newOrders[index].shipVia = order.shipVia;
     newOrders[index].employeeId = order.employeeId;
-    newOrders[index].details[0].unitPrice = order.unitPrice;
+    newOrders[index].details[0].unitPrice = order.details[0].unitPrice;
 
     if (JSON.stringify(orders[index]) === JSON.stringify(newOrders[index])) {
     } else {
@@ -107,6 +109,7 @@ export default function DataManager() {
             <th>unit price</th>
             <th>Update</th>
             <th>Delete</th>
+            <th>Details</th>
           </tr>
         </thead>
         <tbody>
@@ -125,6 +128,9 @@ export default function DataManager() {
                   <button onClick={(event) => deleteData(order.id)}>
                     Delete
                   </button>
+                </td>
+                <td>
+                  <Link to={`/orders/${order.id}`}>Details</Link>
                 </td>
               </tr>
             ))}

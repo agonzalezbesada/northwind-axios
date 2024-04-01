@@ -19,7 +19,7 @@ export default function Modal({setVisibility, order, updateOrder, updateAPI}) {
               <td className="modal-td">
                 <input className="modal-input"
                   type="text"
-                  name="modal-input customerId"
+                  name="customerId"
                   placeholder={order.customerId}
                   onChange={(event) => updateOrder(event)}
                 />
@@ -27,7 +27,7 @@ export default function Modal({setVisibility, order, updateOrder, updateAPI}) {
               <td className="modal-td">
                 <input className="modal-input"
                   type="text"
-                  name="modal-input shipName"
+                  name="shipName"
                   placeholder={order.shipName}
                   onChange={(event) => updateOrder(event)}
                 />
@@ -35,7 +35,7 @@ export default function Modal({setVisibility, order, updateOrder, updateAPI}) {
               <td className="modal-td">
                 <input className="modal-input"
                   type="text"
-                  name="modal-input shipVia"
+                  name="shipVia"
                   placeholder={order.shipVia}
                   onChange={(event) => updateOrder(event)}
                 />
@@ -43,7 +43,7 @@ export default function Modal({setVisibility, order, updateOrder, updateAPI}) {
               <td className="modal-td">
                 <input className="modal-input"
                   type="text"
-                  name="modal-input employeeId"
+                  name="employeeId"
                   placeholder={order.employeeId}
                   onChange={(event) => updateOrder(event)}
                 />
@@ -51,7 +51,7 @@ export default function Modal({setVisibility, order, updateOrder, updateAPI}) {
               <td className="modal-td">
                 <input className="modal-input"
                   type="text"
-                  name="modal-input unitPrice"
+                  name="unitPrice"
                   placeholder={order.details[0].unitPrice}
                   onChange={(event) => updateOrder(event)}
                 />
